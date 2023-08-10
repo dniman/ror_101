@@ -80,8 +80,8 @@ class Route
 
   # Может выводить список всех станций по-порядку от начальной до конечной
   def show
+    puts 'Список всех станций: '
     @stations.flatten.each do |station|
-      puts 'Список всех станций: '
       puts "  #{station.name}"
     end
   end
@@ -184,4 +184,5 @@ t2 = Train.new('SecondTrain', 2, 35)
 t1.route = route
 t2.route = route
 
-t1.station.show_all
+route.show
+t1.station.show_cargo
