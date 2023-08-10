@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby -w
+# frozen_string_literal: true
 
 # Класс Route (Маршрут)
 class Station
@@ -22,34 +23,27 @@ class Station
 
   # Список всех поездов на станции
   def show_all
-    @trains.each do |train|
-      train.show
-    end
-    puts "Итого: #{ @trains.length }"
+    @trains.each(&:show)
+    puts "Итого: #{@trains.length}"
   end
 
   # Список пассажирских поездов
   def show_passanger
     trains = @trains.select(&:passanger?)
-    trains.each do |train|
-      train.show
-    end
-    puts "Итого: #{ trains.length }"
+    trains.each(&:show)
+    puts "Итого: #{trains.length}"
   end
 
   # Список грузовых поездов
   def show_cargo
     trains = @trains.select(&:cargo?)
-    trains.each do |train|
-      train.show
-    end
-    puts "Итого: #{ trains.length }"
+    trains.each(&:show)
+    puts "Итого: #{trains.length}"
   end
 end
 
 # Класс Route (Маршрут)
 class Route
-
   # initial_station - Начальная станция
   # final_station - Конечная станция
   def initialize(initial_station, final_station)
@@ -73,13 +67,13 @@ class Route
   def next_station(station)
     index = stations.find_index(station)
     return station if index.next >= stations.size
-    
+
     stations[index.next]
   end
 
   def previous_station(station)
     index = stations.find_index(station)
-    return station if index.pred < 0
+    return station if index.pred.negative?
 
     stations[index.pred]
   end
@@ -87,7 +81,7 @@ class Route
   # Может выводить список всех станций по-порядку от начальной до конечной
   def show
     @stations.flatten.each do |station|
-      puts "Список всех станций: "
+      puts 'Список всех станций: '
       puts "  #{station.name}"
     end
   end
@@ -96,12 +90,11 @@ end
 # Класс Route (Маршрут)
 class Train
   TRAIN_TYPE = {
-    1 => "Пассажирский",
-    2 => "Грузовой"
-  }
+    1 => 'Пассажирский',
+    2 => 'Грузовой'
+  }.freeze
 
-  attr_reader :speed
-  attr_reader :station
+  attr_reader :speed, :station
 
   # number: Номер поезда
   # type: 1 - Пассажирский, 2 - Грузовой
@@ -122,17 +115,17 @@ class Train
 
   # Может тормозить (сбрасывать скорость до нуля)
   def speed_down
-    @speed -= 1 if @speed > 0
+    @speed -= 1 if @speed.positive?
   end
 
   # Может прицеплять вагон
   def pin_on
-    @carriage_count += 1 if @speed.zero? && @carriage_count > 0
+    @carriage_count += 1 if @speed.zero? && @carriage_count.positive?
   end
 
   # Может отцеплять вагон
   def pin_off
-    @carriage_count -= 1 if @speed.zero? && @carriage_count > 0
+    @carriage_count -= 1 if @speed.zero? && @carriage_count.positive?
   end
 
   # Может принимать маршрут следования
@@ -140,7 +133,7 @@ class Train
   def route=(value)
     @route = value
     @station = value.nil? ? nil : @route.stations.first
-    @station.add_train(self) if @station
+    @station&.add_train(self)
   end
 
   def next_station
@@ -152,7 +145,7 @@ class Train
   end
 
   def move_next_station
-    station.delete_train(self) 
+    station.delete_train(self)
 
     @station = next_station
 
@@ -166,7 +159,7 @@ class Train
 
     station.add_train(self)
   end
-  
+
   # Является ли поезд пассажирским
   def passanger?
     @type == TRAIN_TYPE.keys.first
@@ -178,19 +171,17 @@ class Train
   end
 
   def show
-    puts "#{TRAIN_TYPE[@type]} поезд №#{@number}. Вагонов - #{ @carriage_count }"
+    puts "#{TRAIN_TYPE[@type]} поезд №#{@number}. Вагонов - #{@carriage_count}"
   end
 end
 
+route = Route.new(Station.new('a'), Station.new('d'))
+route.add Station.new('b')
+route.add Station.new('c')
 
-route = Route.new(Station.new("a"),Station.new("d"))
-route.add Station.new("b")
-route.add Station.new("c")
-
-t1 = Train.new("FirstTrain", 1, 5)
-t2 = Train.new("SecondTrain", 2, 35)
+t1 = Train.new('FirstTrain', 1, 5)
+t2 = Train.new('SecondTrain', 2, 35)
 t1.route = route
 t2.route = route
 
 t1.station.show_all
-
