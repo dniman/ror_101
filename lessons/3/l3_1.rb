@@ -137,14 +137,20 @@ class Train
   end
 
   def next_station
+    return if @route.nil?
+
     @route.next_station(station)
   end
 
   def previous_station
+    return if @route.nil?
+
     @route.previous_station(station)
   end
 
   def move_next_station
+    return if station.nil?
+
     station.delete_train(self)
 
     @station = next_station
@@ -153,6 +159,8 @@ class Train
   end
 
   def move_previous_station
+    return if station.nil?
+
     station.delete_train(self)
 
     @station = previous_station
@@ -186,3 +194,7 @@ t2.route = route
 
 route.show
 t1.station.show_cargo
+t1.pin_on
+t1.pin_on
+t1.speed_up
+pp t1
