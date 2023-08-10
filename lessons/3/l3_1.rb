@@ -120,7 +120,7 @@ class Train
 
   # Может прицеплять вагон
   def pin_on
-    @carriage_count += 1 if @speed.zero? && @carriage_count.positive?
+    @carriage_count += 1 if @speed.zero?
   end
 
   # Может отцеплять вагон
