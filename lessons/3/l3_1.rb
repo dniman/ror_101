@@ -94,7 +94,7 @@ class Train
     2 => 'Грузовой'
   }.freeze
 
-  attr_reader :speed, :station
+  attr_reader :carriage_count, :speed, :station
 
   # number: Номер поезда
   # type: 1 - Пассажирский, 2 - Грузовой
