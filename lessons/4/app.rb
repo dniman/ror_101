@@ -27,7 +27,7 @@ class App < Routine
       @trains << CargoTrain.new(number) if type == CARGO_TRAIN
     end
 
-    def create_root(initial_station, final_station)
+    def create_route(initial_station, final_station)
       App.routes << Route.new(initial_station, final_station)
     end
   end
