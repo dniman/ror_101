@@ -36,7 +36,7 @@ class TrainMenu < TextMenu
 
       train = trains[num - 1]
 
-      if train.type == :passanger
+      if train.type == "пассажирский"
         train.pin_on(PassangerCarriage.new)
       else
         train.pin_on(CargoCarriage.new)
