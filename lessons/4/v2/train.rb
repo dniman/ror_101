@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Класс Route (Маршрут)
 class Train
   attr_reader :carriages, :speed, :station, :route
@@ -23,12 +25,12 @@ class Train
 
   # Может прицеплять вагон
   def pin_on(carriage)
-    @carriages << carriage if @speed.zero? and carriage.type == type
+    @carriages << carriage if @speed.zero? && (carriage.type == type)
   end
 
   # Может отцеплять вагон
   def pin_off(carriage)
-    @carriages.delete_if {|item| item == carriage } if @speed.zero? && @carriages.count.positive?
+    @carriages.delete_if { |item| item == carriage } if @speed.zero? && @carriages.count.positive?
   end
 
   # Может принимать маршрут следования
@@ -70,7 +72,7 @@ class Train
 
     station.add_train(self)
   end
- 
+
   def title
     "#{type.capitalize} поезд №#{@number}. Вагонов - #{@carriages.size}"
   end

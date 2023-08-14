@@ -1,34 +1,35 @@
+# frozen_string_literal: true
+
 require_relative 'text_menu'
 require_relative 'station'
 
 class StationMenu < TextMenu
-  
   def create_station_action
-    print "Введите наименование станции: "
+    print 'Введите наименование станции: '
     name = gets.chomp
-    station = self.create_station(name) 
-    puts "Добавлена новая станция #{ station.name }"
-    print "Нажмите любую клавишу для продолжения..."
+    station = create_station(name)
+    puts "Добавлена новая станция #{station.name}"
+    print 'Нажмите любую клавишу для продолжения...'
     gets
   end
 
   def show_stations_action
     puts show_stations
-    print "Нажмите любую клавишу для продолжения..."
+    print 'Нажмите любую клавишу для продолжения...'
     gets
   end
-  
+
   def show_station_trains_action
-    if stations_count > 0
-      puts "Выберите станцию из списка: "
+    if stations_count.positive?
+      puts 'Выберите станцию из списка: '
       puts show_stations(true)
-      print ">> "
+      print '>> '
       num = gets.chomp.to_i
       stations[num - 1].show_all
     else
       puts show_stations
     end
-    print "Нажмите любую клавишу для продолжения..."
+    print 'Нажмите любую клавишу для продолжения...'
     gets
   end
 
@@ -48,7 +49,7 @@ class StationMenu < TextMenu
     stations.size
   end
 
-  def show_stations(index=false)
+  def show_stations(index = false)
     arr = []
     if index
       stations.each.with_index(1) do |station, index|

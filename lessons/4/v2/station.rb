@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Класс Route (Маршрут)
 class Station
   attr_reader :name, :trains
@@ -20,7 +22,7 @@ class Station
 
   # Список пассажирских поездов/грузовых поездов
   def trains_by_type(type)
-    @trains.map {|train| train.type == type}
+    @trains.map { |train| train.type == type }
   end
 
   def show_all

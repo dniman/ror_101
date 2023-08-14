@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Класс Route (Маршрут)
 class Route
   # initial_station - Начальная станция

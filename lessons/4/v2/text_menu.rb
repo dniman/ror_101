@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class TextMenu
   attr_accessor :header, :footer
   attr_reader :sections, :section_num, :actions
-  
+
   def initialize
     @sections = []
     @actions = []
@@ -14,14 +16,14 @@ class TextMenu
 
   def show
     print info
-  end  
+  end
 
   def select_action(num)
     num.zero? ? actions[actions.size - 1] : actions[num - 1]
   end
 
   def clear_screen
-    system "clear"
+    system 'clear'
   end
 
   def info
@@ -31,22 +33,23 @@ class TextMenu
   def activate!
     self.active = true
 
-    while self.active? do
+    while active?
       clear_screen
       show
       section = get_section
-      
+
       if section.zero?
         self.active = false
       else
         send(select_action(section))
-      end 
+      end
 
       clear_screen
-    end 
+    end
   end
 
   private
+
   attr_writer :active
 
   def active?
