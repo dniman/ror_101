@@ -4,6 +4,6 @@ require_relative 'carriage'
 
 class PassangerCarriage < Carriage
   def type
-    :passanger
+    "пассажирский"
   end
 end
