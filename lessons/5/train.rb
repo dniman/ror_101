@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 require_relative 'manufacturerable'
 require_relative 'instance_counter'
-require 'byebug'
 
 # Класс Route (Маршрут)
 class Train

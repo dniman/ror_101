@@ -23,6 +23,6 @@ module InstanceCounter
   
   def inherited(subclass)
     instances = "@#{instances}"
-    subclass.instance_variable_set(instances, instance_variable_get(instance))
+    subclass.instance_variable_set(instances, instance_variable_get(instances))
   end
 end

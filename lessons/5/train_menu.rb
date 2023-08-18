@@ -3,6 +3,7 @@
 require_relative 'train_menu'
 require_relative 'passanger_train'
 require_relative 'cargo_train'
+require 'byebug'
 
 class TrainMenu < TextMenu
   PASSANGER_TRAIN = 1
@@ -36,7 +37,7 @@ class TrainMenu < TextMenu
 
       train = trains[num - 1]
 
-      if train.type == "пассажирский"
+      if train.type == 'пассажирский'
         train.pin_on(PassangerCarriage.new)
       else
         train.pin_on(CargoCarriage.new)
@@ -133,7 +134,8 @@ class TrainMenu < TextMenu
   private
 
   def trains
-    Train.instances
+    (CargoTrain.instances.nil? ? [] : CargoTrain.instances) + \
+      (PassangerTrain.instances.nil? ? [] : PassangerTrain.instances)
   end
 
   def trains_count
@@ -176,13 +178,13 @@ class TrainMenu < TextMenu
     arr = []
     if index
       routes.each.with_index(1) do |route, index|
-        arr << "  #{index}.#{route.name}"
+        arr << "  #{index}.#{route.stations.map(&:name).join('-')}"
       end
     else
       routes.each do |route|
-        arr << "  #{route.title}"
+        arr << "  #{route.stations.map(&:name).join('-')}"
       end
-      arr << "Всего маршрутов: #{routes.size}"
+      arr << "Всего маршрутов: #{routes_count}"
     end
     arr.join("\n")
   end
