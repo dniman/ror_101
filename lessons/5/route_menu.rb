@@ -105,7 +105,7 @@ class RouteMenu < TextMenu
   private
 
   def stations
-    Stations.all
+    Station.all
   end
 
   def stations_count
