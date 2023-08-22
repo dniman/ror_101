@@ -28,11 +28,18 @@ class StationMenu < TextMenu
 
   def show_station_trains_action
     if stations_count.positive?
-      puts 'Выберите станцию из списка: '
-      puts show_stations(true)
-      print '>> '
-      num = gets.chomp.to_i
-      stations[num - 1].show_all
+      self.active = true
+      while active?
+        puts 'Выберите станцию из списка: '
+        puts show_stations(true)
+        print '>> '
+        num = gets.chomp.to_i
+        station = stations[num - 1]
+       
+        self.active = false unless station.nil?
+      end
+      
+      station.show_all
     else
       puts show_stations
     end
@@ -43,7 +50,7 @@ class StationMenu < TextMenu
   private
 
   def stations
-    Station.all
+    Station.all || []
   end
 
   def create_station(name)

@@ -51,6 +51,7 @@ class Route
   end
 
   private
+  attr_reader :initial_station, :final_station
 
   def valid?
     self.validate!

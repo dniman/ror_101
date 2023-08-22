@@ -14,7 +14,7 @@ class TrainMenu < TextMenu
       number = gets.chomp
       print 'Введите тип поезда(1-пассажирский, 2-грузовой): '
       type = gets.chomp.to_i
-
+      
       train = create_train(number, type)
     rescue RuntimeError => error
       puts error.message
@@ -160,6 +160,8 @@ class TrainMenu < TextMenu
       PassangerTrain.new(number)
     when CARGO_TRAIN
       CargoTrain.new(number)
+    else
+      raise "Поезда с таким типом не существует!"
     end
   end
 
