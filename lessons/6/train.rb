@@ -6,6 +6,7 @@ require_relative 'instance_counter'
 class Train
   include Manufacturerable
   include InstanceCounter
+  include Validatable
 
   NUMBER_FORMAT = /^[а-я|\d]{3}\z|^[а-я|\d]{3}-[а-я|\d]{2}\z/
 
@@ -96,13 +97,6 @@ class Train
 
   private
   attr_reader :number
-
-  def valid?
-    validate!
-    true
-  rescue
-    false
-  end
 
   def validate!
     raise "Номер поезда не может быть пустым!" if self.number.nil?

@@ -4,6 +4,7 @@ require_relative 'instance_counter'
 # Класс Route (Маршрут)
 class Station
   include InstanceCounter
+  include Validatable
 
   attr_reader :name, :trains
 
@@ -40,13 +41,6 @@ class Station
   end
 
   private
-
-  def valid?
-    self.validate!
-    true
-  rescue
-    false
-  end
 
   def validate!
     raise "Наименование станции не может быть пустым!" if self.name.empty?

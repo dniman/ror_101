@@ -4,6 +4,7 @@ require_relative 'instance_counter'
 # Класс Route (Маршрут)
 class Route
   include InstanceCounter
+  include Validatable
 
   # initial_station - Начальная станция
   # final_station - Конечная станция
@@ -52,13 +53,6 @@ class Route
 
   private
   attr_reader :initial_station, :final_station
-
-  def valid?
-    self.validate!
-    true
-  rescue
-    false
-  end
 
   def validate!
     raise "Начальная станция не может быть пустой!" if initial_station.nil?
