@@ -3,43 +3,18 @@
 require_relative 'carriage'
 
 class CargoCarriage < Carriage
-  MAX_CAPACITY = 20
+  MAX_CAPACITY = 1000
 
-  attr_reader :type, :capacity, :taked_capacity
+  attr_reader :type
 
-  def initialize(capacity)
+  def initialize
     @type = "грузовой"
-    @capacity = capacity
-    @taked_capacity = 0
-
-    self.validate!
+    super(MAX_CAPACITY)
   end
 
-  def take_up(capacity)
-    raise "Запрашиваемый объем #{capacity} не доступен. Доступно #{self.capacity}" if capacity > self.capacity
+  def occupy_space(space)
+    raise "Запрашиваемый объем #{space} не доступен. Доступно #{self.free_space}" if space > self.free_space
     
-    self.taked_capacity = capacity
-  end
-
-  def info
-    "#{self.type.capitalize} ваган №#{self.number}. Свободно - #{self.capacity}, Занято - #{self.taked_capacity}"
-  end
-
-  private
-  
-  def number
-    @number ||= self.class.instances.select do |instance| 
-      instance.type == self.type
-    end.size + 1
-  end
-
-  def taked_capacity=(value)
-    @taked_capacity += value
-    @capacity -= value
-  end
-
-  def validate!
-    raise "Общий объем не может быть пустым!" if self.capacity.nil?
-    raise "Общий объем не может быть больше #{MAX_CAPACITY}!" if self.capacity > MAX_CAPACITY
+    self.occupied_space = space
   end
 end

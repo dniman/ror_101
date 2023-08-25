@@ -44,9 +44,9 @@ class TrainMenu < TextMenu
       train = trains[num - 1]
 
       if train.type == 'пассажирский'
-        train.pin_on(PassangerCarriage.new(PassangerCarriage::MAX_SEATS))
+        train.pin_on(PassangerCarriage.new)
       else
-        train.pin_on(CargoCarriage.new(CargoCarriage::MAX_CAPACITY))
+        train.pin_on(CargoCarriage.new)
       end
       puts "Прицеплен новый вагон к #{train.title}"
     else
@@ -190,21 +190,19 @@ class TrainMenu < TextMenu
         self.active = false unless carriage.nil?
       end
 
-      begin
-        if carriage.type == 'грузовой'
+
+      if carriage.type == 'пассажирский'
+        carriage.occupy_space
+      else
+        begin
           print 'Укажите занимаемый объем: '
-          capacity = gets.chomp.to_f
+          space = gets.chomp.to_i
 
-          carriage.take_up(capacity)
-        else
-          print 'Забронируйте место: '
-          seat = gets.chomp.to_i
-
-          carriage.book_a_seat(seat)
+          carriage.occupy_space(space)
+        rescue StandardError => error
+          puts error.message
+          retry  
         end
-      rescue StandardError => error
-        puts error.message
-        retry  
       end
     else 
       puts show_trains
