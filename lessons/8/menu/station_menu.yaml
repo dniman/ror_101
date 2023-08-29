@@ -1,0 +1,7 @@
+header:                       'Выберите действие: '
+actions:  
+  create_station_action:      '  1. Создать станцию'
+  show_stations_action:       '  2. Просмотреть список доступных станций'
+  show_station_trains_action: '  3. Просмотреть список поездов на станции'
+  exit_action:                '  0. Вернуться в предыдущее меню'
+footer:                       '>> '

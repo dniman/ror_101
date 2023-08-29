@@ -1,0 +1,8 @@
+header:                   'Выберите действие: '
+actions:
+  create_route_action:    '  1. Создать маршрут'
+  show_routes_action:     '  2. Просмотреть список маршрутов'
+  add_station_action:     '  3. Добавить промежуточную станцию в маршрут'
+  delete_station_action:  '  4. Удалить промежуточную станцию из маршрута'
+  exit_action:            '  0. Вернуться в предыдущее меню'
+footer:                   '>> '
