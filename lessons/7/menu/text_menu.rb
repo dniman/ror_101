@@ -15,13 +15,16 @@ module Menu
         clear_screen
         show
 
-        section = self.section
-        action = select_action(section)
-        unless action.nil?
-          action.call(section)
-          self.active = false
-        end
+        self.active = false if call_action(section)
       end
+    end
+
+    private
+
+    def call_action(section)
+      action = select_action(section)
+
+      action&.call(section)
     end
   end
 end

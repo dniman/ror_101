@@ -1,0 +1,24 @@
+Naming/MethodName:
+  AllowedNames:
+    - press_any_button_to_continue
+    - show_station_trains_action
+
+Metrics/ModuleLength:
+  Exclude:
+    - "**/*_actions.rb"
+
+Metrics/MethodLength:
+  Exclude:
+    - "**/*_actions.rb"
+
+Metrics/AbcSize:
+  Exclude:
+    - "**/*_actions.rb"
+
+Style/Documentation:
+  Enabled: false
+
+Style/GlobalVars:
+  Enabled: false
+
+    #inherit_from: .rubocop_todo.yml

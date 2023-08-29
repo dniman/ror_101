@@ -40,11 +40,7 @@ module Menu
         if trains.size.positive?
           train = self.train
 
-          if train.type == 'пассажирский'
-            train.pin_on(PassangerCarriage.new)
-          else
-            train.pin_on(CargoCarriage.new)
-          end
+          pin_on_carriage(train)
           puts "Прицеплен новый вагон к #{train.title}"
         else
           puts 'Список поездов пуст'
@@ -129,22 +125,7 @@ module Menu
           if train.carriages.size.positive?
             carriage = self.carriage(train)
 
-            if carriage.type == 'пассажирский'
-              carriage.occupy_space
-
-              puts 'Зарезезервировано 1 место'
-            else
-              begin
-                print 'Укажите занимаемый объем: '
-                space = gets.chomp.to_i
-
-                carriage.occupy_space(space)
-                puts "Зарезезервирован объем #{space}"
-              rescue StandardError => e
-                puts e.message
-                retry
-              end
-            end
+            reserve_space(carriage)
           else
             puts 'Список вагонов поезда пуст'
           end
@@ -258,6 +239,33 @@ module Menu
         end
 
         puts arr.join("\n")
+      end
+
+      def pin_on_carriage(train)
+        if train.type == 'пассажирский'
+          train.pin_on(PassangerCarriage.new)
+        else
+          train.pin_on(CargoCarriage.new)
+        end
+      end
+
+      def reserve_space(carriage)
+        if carriage.type == 'пассажирский'
+          carriage.occupy_space
+
+          puts 'Зарезезервировано 1 место'
+        else
+          begin
+            print 'Укажите занимаемый объем: '
+            space = gets.chomp.to_i
+
+            carriage.occupy_space(space)
+            puts "Зарезезервирован объем #{space}"
+          rescue StandardError => e
+            puts e.message
+            retry
+          end
+        end
       end
     end
   end
