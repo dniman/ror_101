@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Menu
   class BaseMenu
     attr_reader :sections, :section_num, :actions, :header, :footer
@@ -11,7 +13,7 @@ module Menu
 
       self.active = false
     end
-    
+
     def section
       gets.chomp.to_i
     end
@@ -19,11 +21,11 @@ module Menu
     def show
       print info
     end
-    
-    def select_action(num)
-      raise "not implemented"
+
+    def select_action(_num)
+      raise 'not implemented'
     end
-    
+
     def clear_screen
       system 'clear'
     end
@@ -31,9 +33,9 @@ module Menu
     def info
       [header, sections, footer].flatten.join("\n")
     end
-    
+
     def activate!
-      raise "not implemented"
+      raise 'not implemented'
     end
 
     def exit_action
@@ -47,6 +49,5 @@ module Menu
     def active?
       @active
     end
-
   end
 end

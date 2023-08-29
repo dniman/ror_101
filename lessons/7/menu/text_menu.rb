@@ -4,7 +4,6 @@ require_relative 'base_menu'
 
 module Menu
   class TextMenu < BaseMenu
-
     def select_action(num)
       actions[num - 1] if num.positive? && num <= actions.size
     end

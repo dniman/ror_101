@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 require_relative '../text_menu'
 require './passanger_train'
@@ -31,7 +32,7 @@ module Menu
 
       def show_trains_action
         show_trains
-        
+
         press_any_button_to_continue
       end
 
@@ -46,9 +47,9 @@ module Menu
           end
           puts "Прицеплен новый вагон к #{train.title}"
         else
-          puts "Список поездов пуст"
+          puts 'Список поездов пуст'
         end
-        
+
         press_any_button_to_continue
       end
 
@@ -59,9 +60,9 @@ module Menu
           train.pin_off(train.carriages.last)
           puts "Отцеплен вагон от #{train.title}"
         else
-          puts "Список поездов пуст"
+          puts 'Список поездов пуст'
         end
-        
+
         press_any_button_to_continue
       end
 
@@ -70,12 +71,12 @@ module Menu
           train = self.train
 
           if routes.size.positive?
-            train.route = self.route
+            train.route = route
           else
-            puts "Список маршрутов пуст"
+            puts 'Список маршрутов пуст'
           end
         else
-          puts "Список поездов пуст"
+          puts 'Список поездов пуст'
         end
 
         press_any_button_to_continue
@@ -88,9 +89,9 @@ module Menu
           train.move_next_station
           puts "Поезд перемещен на станцию #{train.station.name}"
         else
-          puts "Список поездов пуст"
+          puts 'Список поездов пуст'
         end
-        
+
         press_any_button_to_continue
       end
 
@@ -101,9 +102,9 @@ module Menu
           train.move_previous_station
           puts "Поезд перемещен на станцию #{train.station.name}"
         else
-          puts "Список поездов пуст"
+          puts 'Список поездов пуст'
         end
-        
+
         press_any_button_to_continue
       end
 
@@ -115,7 +116,7 @@ module Menu
             puts carriage.info
           end
         else
-          puts "Список поездов пуст"
+          puts 'Список поездов пуст'
         end
 
         press_any_button_to_continue
@@ -127,11 +128,11 @@ module Menu
 
           if train.carriages.size.positive?
             carriage = self.carriage(train)
-            
+
             if carriage.type == 'пассажирский'
               carriage.occupy_space
-              
-              puts "Зарезезервировано 1 место"
+
+              puts 'Зарезезервировано 1 место'
             else
               begin
                 print 'Укажите занимаемый объем: '
@@ -145,10 +146,10 @@ module Menu
               end
             end
           else
-            puts "Список вагонов поезда пуст"
+            puts 'Список вагонов поезда пуст'
           end
         else
-          puts "Список поездов пуст"
+          puts 'Список поездов пуст'
         end
 
         press_any_button_to_continue
@@ -178,56 +179,56 @@ module Menu
 
       def train
         raw_menu = {
-          "header" => "Выберите поезд из списка: ",
-          "actions" => 
-            trains.each_with_object({}).with_index(1) do |(train,actions), index|
-              action = ->(num) do
+          'header' => 'Выберите поезд из списка: ',
+          'actions' =>
+            trains.each_with_object({}).with_index(1) do |(_train, actions), index|
+              action = lambda do |num|
                 $memory_pool[:train] = trains[num - 1]
               end
-          
+
               actions[action] = "  #{index}.#{trains[index - 1].title}"
             end,
-          "footer" => ">> "
+          'footer' => '>> '
         }
-        
+
         TextMenu.new(raw_menu).activate!
 
         $memory_pool[:train]
       end
-      
+
       def route
         raw_menu = {
-          "header" => "Выберите маршрут из списка: ",
-          "actions" => 
-            routes.each_with_object({}).with_index(1) do |(route,actions), index|
-              action = ->(num) do
+          'header' => 'Выберите маршрут из списка: ',
+          'actions' =>
+            routes.each_with_object({}).with_index(1) do |(route, actions), index|
+              action = lambda do |num|
                 $memory_pool[:route] = routes[num - 1]
               end
-          
+
               actions[action] = "  #{index}.#{route.stations.map(&:name).join('-')}"
             end,
-          "footer" => ">> "
+          'footer' => '>> '
         }
-        
+
         TextMenu.new(raw_menu).activate!
 
         $memory_pool[:route]
       end
-      
+
       def carriage(train)
         raw_menu = {
-          "header" => "Выберите вагон из списка: ",
-          "actions" => 
-            train.carriages.each_with_object({}).with_index(1) do |(carriage,actions), index|
-              action = ->(num) do
+          'header' => 'Выберите вагон из списка: ',
+          'actions' =>
+            train.carriages.each_with_object({}).with_index(1) do |(_carriage, actions), index|
+              action = lambda do |num|
                 $memory_pool[:carriage] = train.carriages[num - 1]
               end
-          
+
               actions[action] = "  #{index}.#{train.carriages[index - 1].info}"
             end,
-          "footer" => ">> "
+          'footer' => '>> '
         }
-        
+
         TextMenu.new(raw_menu).activate!
 
         $memory_pool[:carriage]
@@ -236,7 +237,7 @@ module Menu
       def show_trains
         arr = []
         if trains.size.positive?
-          arr << "Список поездов: "  
+          arr << 'Список поездов: '
           trains.each do |train|
             arr << "  #{train.title}"
           end
@@ -249,7 +250,7 @@ module Menu
       def show_routes
         arr = []
         if routes.size.positive?
-          arr << "Список маршрутов: "  
+          arr << 'Список маршрутов: '
           routes.each do |route|
             arr << "  #{route.stations.map(&:name).join('-')}"
           end
@@ -258,7 +259,6 @@ module Menu
 
         puts arr.join("\n")
       end
-
     end
   end
 end

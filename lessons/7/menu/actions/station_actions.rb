@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require './station'
 require_relative '../text_menu'
 
 module Menu
   module Actions
     module StationActions
-
       def create_station_action
         begin
           print 'Введите наименование станции: '
@@ -33,9 +34,9 @@ module Menu
 
           station.show_all
         else
-          puts "Список станций пуст"
+          puts 'Список станций пуст'
         end
-        
+
         press_any_button_to_continue
       end
 
@@ -51,18 +52,18 @@ module Menu
 
       def station
         raw_menu = {
-          "header" => "Выберите станцию из списка: ",
-          "actions" => 
-            stations.each_with_object({}).with_index(1) do |(station,actions), index|
-              action = ->(num) do
+          'header' => 'Выберите станцию из списка: ',
+          'actions' =>
+            stations.each_with_object({}).with_index(1) do |(_station, actions), index|
+              action = lambda do |num|
                 $memory_pool[:station] = stations[num - 1]
               end
-          
+
               actions[action] = "  #{index}.#{stations[index - 1].name}"
             end,
-          "footer" => ">> "
+          'footer' => '>> '
         }
-        
+
         TextMenu.new(raw_menu).activate!
 
         $memory_pool[:station]
@@ -71,7 +72,7 @@ module Menu
       def show_stations
         arr = []
         if stations.size.positive?
-          arr << "Список станций: "  
+          arr << 'Список станций: '
           stations.each do |station|
             arr << "  #{station.name}"
           end
@@ -80,7 +81,6 @@ module Menu
 
         puts arr.join("\n")
       end
-
     end
   end
 end

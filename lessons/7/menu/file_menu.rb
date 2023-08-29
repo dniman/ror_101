@@ -7,13 +7,15 @@ require_relative 'base_menu'
 module Menu
   class FileMenu < BaseMenu
     using Utils
-    
+
     def initialize
-      super(self.load_menu)
+      super(load_menu)
     end
 
     def select_action(num)
-      num.zero? ? actions[actions.size - 1] : actions[num - 1] if num <= actions.size
+      return unless num <= actions.size
+
+      num.zero? ? actions[actions.size - 1] : actions[num - 1]
     end
 
     def activate!
@@ -22,7 +24,7 @@ module Menu
       while active?
         clear_screen
         show
-        
+
         action = select_action(section)
         send(action) unless action.nil?
 
@@ -33,19 +35,17 @@ module Menu
     private
 
     def load_menu
-      begin
-        YAML.load(self.read_yaml)
-      rescue Psych::SyntaxError
-        puts "Ошибка в структуре файла #{file_name}"
+      YAML.load(read_yaml)
+    rescue Psych::SyntaxError
+      puts "Ошибка в структуре файла #{file_name}"
 
-        exit
-      end
+      exit
     end
 
     def read_yaml
-      File.read(self.file_name)
-    rescue Exception => e
-      puts "Ошибка при чтении файла #{file_name}"
+      File.read(file_name)
+    rescue Errno::ENOENT
+      puts "Файл не найден #{file_name}"
 
       exit
     end
