@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative 'manufacturerable'
 require_relative 'instance_counter'
 require_relative 'validatable'
@@ -12,7 +13,7 @@ class Train
   NUMBER_FORMAT = /^[а-я|\d]{3}\z|^[а-я|\d]{3}-[а-я|\d]{2}\z/
 
   def self.find(number)
-    self.instances.detect {|train| train.instance_variable_get(:@number) == number }
+    instances.detect { |train| train.instance_variable_get(:@number) == number }
   end
 
   attr_reader :carriages, :speed, :station, :route
@@ -25,7 +26,7 @@ class Train
     @route = nil
     @station = nil
 
-    self.validate!
+    validate!
   end
 
   # Может набирать скорость
@@ -94,7 +95,7 @@ class Train
 
   def show
     puts title
-  end  
+  end
 
   def each_carriage
     carriages.each do |carriage|
@@ -103,10 +104,11 @@ class Train
   end
 
   private
+
   attr_reader :number
 
   def validate!
-    raise "Номер поезда не может быть пустым!" if self.number.nil?
-    raise "Номер поезда имеет не верный формат!" if self.number !~ NUMBER_FORMAT
+    raise 'Номер поезда не может быть пустым!' if number.nil?
+    raise 'Номер поезда имеет не верный формат!' if number !~ NUMBER_FORMAT
   end
 end

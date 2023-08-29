@@ -8,13 +8,13 @@ class CargoCarriage < Carriage
   attr_reader :type
 
   def initialize
-    @type = "грузовой"
+    @type = 'грузовой'
     super(MAX_CAPACITY)
   end
 
   def occupy_space(space)
-    raise "Запрашиваемый объем #{space} не доступен. Доступно #{self.free_space}" if space > self.free_space
-    
+    raise "Запрашиваемый объем #{space} не доступен. Доступно #{free_space}" if space > free_space
+
     self.occupied_space = space
   end
 end

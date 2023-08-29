@@ -7,6 +7,6 @@ class CargoTrain < Train
 
   def initialize(number)
     super(number)
-    @type = "грузовой"
+    @type = 'грузовой'
   end
 end

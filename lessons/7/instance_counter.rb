@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module InstanceCounter
   def self.included(base)
     base.extend ClassMethods
@@ -6,7 +8,7 @@ module InstanceCounter
   module ClassMethods
     def new(*_, &block)
       instance = super
-      self.register_instance(instance)
+      register_instance(instance)
       instance
     end
 
@@ -15,13 +17,15 @@ module InstanceCounter
     end
 
     private
+
     def register_instance(instance)
       @instances ||= []
       @instances << instance
     end
   end
-  
+
   def inherited(subclass)
+    super
     instances = "@#{instances}"
     subclass.instance_variable_set(instances, instance_variable_get(instances))
   end

@@ -8,13 +8,13 @@ class PassangerCarriage < Carriage
   attr_reader :type
 
   def initialize
-    @type = "пассажирский"
+    @type = 'пассажирский'
     super(MAX_SEATS)
   end
 
   def occupy_space(space = 1)
     return if space > 1
-    raise "Мест в вагоне больше нет" if self.free_space.zero? 
+    raise 'Мест в вагоне больше нет' if free_space.zero?
 
     self.occupied_space = space
   end

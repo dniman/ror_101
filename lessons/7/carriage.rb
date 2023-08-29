@@ -13,7 +13,7 @@ class Carriage
   end
 
   def occupy_space
-    raise "not implemented"
+    raise 'not implemented'
   end
 
   def occupied_space=(value)
@@ -21,18 +21,18 @@ class Carriage
   end
 
   def free_space
-    self.space - self.occupied_space
+    space - occupied_space
   end
 
   def info
-    "#{self.type.capitalize} вагон №#{self.number}. Свободно - #{self.free_space}, Занято - #{self.occupied_space}"
+    "#{type.capitalize} вагон №#{number}. Свободно - #{free_space}, Занято - #{occupied_space}"
   end
 
   private
-  
+
   def number
-    @number ||= self.class.instances.select do |instance| 
-      instance.type == self.type
+    @number ||= self.class.instances.select do |instance|
+      instance.type == type
     end.size + 1
   end
 end

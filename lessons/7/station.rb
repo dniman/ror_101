@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_relative 'instance_counter'
 require_relative 'validatable'
 
@@ -10,7 +11,7 @@ class Station
   attr_reader :name, :trains
 
   class << self
-    alias_method :all, :instances
+    alias all instances
   end
 
   # name - Наименование станции
@@ -18,7 +19,7 @@ class Station
     @name = name
     @trains = []
 
-    self.validate!
+    validate!
   end
 
   # Может принимать поезда (по одному за раз)
@@ -37,7 +38,7 @@ class Station
   end
 
   def show_all
-    self.each_train(&:show)
+    each_train(&:show)
     puts "Всего поездов на станции: #{@trains.length}"
   end
 
@@ -50,7 +51,7 @@ class Station
   private
 
   def validate!
-    raise "Наименование станции не может быть пустым!" if self.name.empty?
-    raise "Наименование станции не божет быть больше 10 символов!" if self.name.length > 10
+    raise 'Наименование станции не может быть пустым!' if name.empty?
+    raise 'Наименование станции не божет быть больше 10 символов!' if name.length > 10
   end
 end
