@@ -54,12 +54,12 @@ module Menu
         raw_menu = {
           'header' => 'Выберите станцию из списка: ',
           'actions' =>
-            stations.each_with_object({}).with_index(1) do |(_station, actions), index|
+            stations.each_with_object({}).with_index(1) do |(station, actions), index|
               action = lambda do |num|
                 $memory_pool[:station] = stations[num - 1]
               end
 
-              actions[action] = "  #{index}.#{stations[index - 1].name}"
+              actions[action] = "  #{index}.#{station.name}"
             end,
           'footer' => '>> '
         }

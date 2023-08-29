@@ -147,12 +147,12 @@ module Menu
         raw_menu = {
           'header' => 'Выберите промежуточную станцию из списка: ',
           'actions' =>
-            available_stations(route).each_with_object({}).with_index(1) do |(_station, actions), index|
+            available_stations(route).each_with_object({}).with_index(1) do |(station, actions), index|
               action = lambda do |num|
                 $memory_pool[:station] = available_stations(route)[num - 1]
               end
 
-              actions[action] = "  #{index}.#{available_stations(route)[index - 1].name}"
+              actions[action] = "  #{index}.#{station.name}"
             end,
           'footer' => '>> '
         }
@@ -166,12 +166,12 @@ module Menu
         raw_menu = {
           'header' => 'Выберите промежуточную станцию из списка: ',
           'actions' =>
-            route.intermediate_stations.each_with_object({}).with_index(1) do |(_station, actions), index|
+            route.intermediate_stations.each_with_object({}).with_index(1) do |(station, actions), index|
               action = lambda do |num|
                 $memory_pool[:intermediate_station] = route.intermediate_stations[num - 1]
               end
 
-              actions[action] = "  #{index}.#{route.intermediate_stations[index - 1].name}"
+              actions[action] = "  #{index}.#{station.name}"
             end,
           'footer' => '>> '
         }

@@ -162,12 +162,12 @@ module Menu
         raw_menu = {
           'header' => 'Выберите поезд из списка: ',
           'actions' =>
-            trains.each_with_object({}).with_index(1) do |(_train, actions), index|
+            trains.each_with_object({}).with_index(1) do |(train, actions), index|
               action = lambda do |num|
                 $memory_pool[:train] = trains[num - 1]
               end
 
-              actions[action] = "  #{index}.#{trains[index - 1].title}"
+              actions[action] = "  #{index}.#{train.title}"
             end,
           'footer' => '>> '
         }
@@ -200,12 +200,12 @@ module Menu
         raw_menu = {
           'header' => 'Выберите вагон из списка: ',
           'actions' =>
-            train.carriages.each_with_object({}).with_index(1) do |(_carriage, actions), index|
+            train.carriages.each_with_object({}).with_index(1) do |(carriage, actions), index|
               action = lambda do |num|
                 $memory_pool[:carriage] = train.carriages[num - 1]
               end
 
-              actions[action] = "  #{index}.#{train.carriages[index - 1].info}"
+              actions[action] = "  #{index}.#{carriage.info}"
             end,
           'footer' => '>> '
         }
