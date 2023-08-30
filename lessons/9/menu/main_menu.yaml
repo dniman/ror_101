@@ -1,0 +1,7 @@
+header:           'Выберите раздел из списка: '
+actions:
+  station_action: '  1. Раздел станции'
+  train_action:   '  2. Раздел поезда'
+  route_action:   '  3. Раздел маршруты'
+  exit_action:    '  0. Выйти'
+footer:           '>> ' 

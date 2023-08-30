@@ -1,0 +1,13 @@
+header:                         'Выберите действие: '
+actions:
+  create_train_action:          '  1. Создать поезд'
+  show_trains_action:           '  2. Просмотреть список доступных поездов'
+  pin_on_carriage_action:       '  3. Добавить вагоны к поезду'
+  pin_off_carriage_action:      '  4. Отцепить вагоны от поезда'
+  attach_route_action:          '  5. Назначить маршрут поезду'
+  move_next_station_action:     '  6. Переместить поезд по маршруту вперед'
+  move_previous_station_action: '  7. Переместить поезд по маршруту назад'
+  show_train_carriages_action:  '  8. Просмотреть список вагонов поезда'
+  reserve_space_action:         '  9. Забронировать место/зарезервировать объем в поезде'
+  exit_action:                  '  0. Вернуться в предыдущее меню'
+footer:                         '>> '
