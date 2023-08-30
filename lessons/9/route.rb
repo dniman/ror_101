@@ -11,9 +11,9 @@ class Route
 
   attr_reader :intermediate_stations
 
-  validate :initial_staion, :presence
+  validate :initial_station, :presence
   validate :initial_station, :type, Station
-  validate :final_staion, :presence
+  validate :final_station, :presence
   validate :final_station, :type, Station
 
   # initial_station - Начальная станция
