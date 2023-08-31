@@ -34,17 +34,4 @@ class App
     menu.activate!
   end
 
-  private
-
-  def load_menu
-    File.read(file_name)
-  rescue Errno::ENOENT
-    puts "Файл не найден #{file_name}"
-
-    exit
-  end
-
-  def file_name
-    File.expand_path('choochoo1.txt', Dir.pwd)
-  end
 end
